@@ -1,11 +1,17 @@
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 import Header from './header';
+import Showcase from './showcase';
 import Footer from './footer';
 
 import styles from '@/styles/layout.module.css';
 
 export default function Layout({title, keywords, description, children}) {
+  const { pathname } = useRouter();
+
+  const hasShowcase = pathname === "/" && <Showcase />;
+
   return (
     <div>
       <Head>
@@ -15,6 +21,8 @@ export default function Layout({title, keywords, description, children}) {
       </Head>
 
       <Header />
+
+      {hasShowcase}
 
       <div className={styles.container}>
         {children}
