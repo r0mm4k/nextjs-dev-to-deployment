@@ -1,5 +1,3 @@
-import Head from 'next/head';
-
 import { API_URL } from '@/config/index';
 
 import Layout from '@/components/layout';
@@ -19,8 +17,8 @@ export default function EventsPage({ events }) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch(`${API_URL}/api/events`);
-  const events = await res.json();
+  const resp = await fetch(`${API_URL}/api/events`);
+  const events = await resp.json();
 
   return {
     props: { events },

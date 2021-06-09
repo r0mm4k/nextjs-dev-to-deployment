@@ -23,8 +23,8 @@ export default function HomePage({ events }) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch(`${API_URL}/api/events`);
-  const events = await res.json();
+  const resp = await fetch(`${API_URL}/api/events`);
+  const events = await resp.json();
 
   return {
     props: { events: events.slice(0,3) },
