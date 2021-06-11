@@ -9,9 +9,11 @@ import styles from '@/styles/event.module.css';
 import Layout from '@/components/layout';
 
 export default function EventPage({ event: { id, name, date, time, image, performers, description, venue, address } }) {
+  const normalizedDate = new Date(date).toLocaleDateString("en-US");
+
   const hasImage = image && (
     <div className={styles.image}>
-      <Image src={image} width={960} height={600} />
+      <Image src={image.formats.medium.url} width={960} height={600} />
     </div>
   );
 
@@ -29,7 +31,7 @@ export default function EventPage({ event: { id, name, date, time, image, perfor
           </a>
         </div>
 
-        <span>{date} at {time}</span>
+        <span>{normalizedDate} at {time}</span>
         <h1>{name}</h1>
 
         {hasImage}
@@ -52,7 +54,7 @@ export default function EventPage({ event: { id, name, date, time, image, perfor
 }
 
 export async function getStaticPaths() {
-  const resp = await fetch(`${API_URL}/api/events`);
+  const resp = await fetch(`${API_URL}/events`);
   const events = await resp.json();
 
   const paths = events.map(({ slug }) => ({ params: { slug } }));
@@ -64,7 +66,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params: { slug } }) {
-  const resp = await fetch(`${API_URL}/api/events/${slug}`);
+  const resp = await fetch(`${API_URL}/events?slug=${slug}`);
   const events = await resp.json();
 
   return {
