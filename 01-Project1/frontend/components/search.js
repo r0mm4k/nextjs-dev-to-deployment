@@ -10,6 +10,7 @@ export default function Search() {
   const handleSubmit = (e) => {
     e.preventDefault();
     push(`/events/search?term=${term}`);
+    setTerm("");
   };
   const handleChange = ({ target: { value } }) => setTerm(value);
 
