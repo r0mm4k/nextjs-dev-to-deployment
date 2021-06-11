@@ -1,6 +1,6 @@
-import Link from 'next/link';
+import Link from "next/link";
 
-import styles from '@/styles/footer.module.css';
+import styles from "@/styles/footer.module.css";
 
 export default function Footer() {
   return (
@@ -10,5 +10,5 @@ export default function Footer() {
         <Link href="/about">About This Project</Link>
       </p>
     </footer>
-  )
+  );
 }

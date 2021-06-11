@@ -1,17 +1,21 @@
-import qs from 'qs';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
+import qs from "qs";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
-import { API_URL } from '@/config/index';
+import { API_URL } from "@/config/index";
 
-import Layout from '@/components/layout';
-import EventItem from '@/components/event-item';
+import Layout from "@/components/layout";
+import EventItem from "@/components/event-item";
 
 export default function SearchPage({ events }) {
-  const { query: { term } } = useRouter();
+  const {
+    query: { term },
+  } = useRouter();
 
   const hasEmptyData = !events.length && <h3>No events to show</h3>;
-  const hasEvents = events.map((event) => <EventItem key={event.id} event={event} />);
+  const hasEvents = events.map((event) => (
+    <EventItem key={event.id} event={event} />
+  ));
 
   return (
     <Layout title="Search Results">
@@ -20,7 +24,7 @@ export default function SearchPage({ events }) {
       {hasEmptyData}
       {hasEvents}
     </Layout>
-  )
+  );
 }
 
 export async function getServerSideProps({ query: { term } }) {
@@ -34,7 +38,7 @@ export async function getServerSideProps({ query: { term } }) {
       ],
     },
   });
-  console.dir(query)
+  console.dir(query);
   const resp = await fetch(`${API_URL}/events?${query}`);
   const events = await resp.json();
 

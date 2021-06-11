@@ -1,14 +1,26 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import { FaPencilAlt, FaTimes } from 'react-icons/fa';
+import Link from "next/link";
+import Image from "next/image";
+import { FaPencilAlt, FaTimes } from "react-icons/fa";
 
-import { API_URL } from '@/config/index';
+import { API_URL } from "@/config/index";
 
-import styles from '@/styles/event.module.css';
+import styles from "@/styles/event.module.css";
 
-import Layout from '@/components/layout';
+import Layout from "@/components/layout";
 
-export default function EventPage({ event: { id, name, date, time, image, performers, description, venue, address } }) {
+export default function EventPage({
+  event: {
+    id,
+    name,
+    date,
+    time,
+    image,
+    performers,
+    description,
+    venue,
+    address,
+  },
+}) {
   const normalizedDate = new Date(date).toLocaleDateString("en-US");
 
   const hasImage = image && (
@@ -24,14 +36,18 @@ export default function EventPage({ event: { id, name, date, time, image, perfor
       <div className={styles.event}>
         <div className={styles.controls}>
           <Link href={`/events/edit/${id}`}>
-            <a><FaPencilAlt /> Edit Event</a>
+            <a>
+              <FaPencilAlt /> Edit Event
+            </a>
           </Link>
           <a href="#" className={styles.delete} onClick={deleteEvent}>
             <FaTimes /> Delete Event
           </a>
         </div>
 
-        <span>{normalizedDate} at {time}</span>
+        <span>
+          {normalizedDate} at {time}
+        </span>
         <h1>{name}</h1>
 
         {hasImage}
@@ -50,7 +66,7 @@ export default function EventPage({ event: { id, name, date, time, image, perfor
         </Link>
       </div>
     </Layout>
-  )
+  );
 }
 
 export async function getStaticPaths() {
@@ -62,7 +78,7 @@ export async function getStaticPaths() {
   return {
     paths,
     fallback: true,
-   };
+  };
 }
 
 export async function getStaticProps({ params: { slug } }) {
@@ -72,5 +88,5 @@ export async function getStaticProps({ params: { slug } }) {
   return {
     props: { event: events[0] },
     revalidate: 1,
-  }
+  };
 }

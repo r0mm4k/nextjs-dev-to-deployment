@@ -7,4 +7,4 @@ export default (req, res) => {
     res.setHeader("Allow", ["GET"]);
     res.status(405).json({ message: `Method ${req.method} is not allowed` });
   }
-}
+};

@@ -1,13 +1,13 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import Header from './header';
-import Showcase from './showcase';
-import Footer from './footer';
+import Header from "./header";
+import Showcase from "./showcase";
+import Footer from "./footer";
 
-import styles from '@/styles/layout.module.css';
+import styles from "@/styles/layout.module.css";
 
-export default function Layout({title, keywords, description, children}) {
+export default function Layout({ title, keywords, description, children }) {
   const { pathname } = useRouter();
 
   const hasShowcase = pathname === "/" && <Showcase />;
@@ -24,17 +24,15 @@ export default function Layout({title, keywords, description, children}) {
 
       {hasShowcase}
 
-      <div className={styles.container}>
-        {children}
-      </div>
+      <div className={styles.container}>{children}</div>
 
       <Footer />
     </div>
-  )
+  );
 }
 
 Layout.defaultProps = {
   title: "DJ Events | Find the hottest patries",
   description: "Find the latest DJ and other musical events",
   keywords: "music, dj, edm, events",
-}
+};

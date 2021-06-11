@@ -1,4 +1,4 @@
-import Layout from '@/components/layout'
+import Layout from "@/components/layout";
 
 export default function AboutPage() {
   return (
@@ -7,5 +7,5 @@ export default function AboutPage() {
       <p>This is an app to find the latest DJ and other musical events</p>
       <p>Virsion: 1.0.0</p>
     </Layout>
-  )
+  );
 }

@@ -1,16 +1,22 @@
-import Head from 'next/head';
+import Head from "next/head";
 
-import Link from 'next/link';
+import Link from "next/link";
 
-import { API_URL } from '@/config/index';
+import { API_URL } from "@/config/index";
 
-import Layout from '@/components/layout';
-import EventItem from '@/components/event-item';
+import Layout from "@/components/layout";
+import EventItem from "@/components/event-item";
 
 export default function HomePage({ events }) {
   const hasEmptyData = !events.length && <h3>No events to show</h3>;
-  const hasEvents = events.map((event) => <EventItem key={event.id} event={event} />);
-  const hasAllEventsButton = events.length > 0 && <Link href="/events"><a className="btn-secondary">View All Events</a></Link>;
+  const hasEvents = events.map((event) => (
+    <EventItem key={event.id} event={event} />
+  ));
+  const hasAllEventsButton = events.length > 0 && (
+    <Link href="/events">
+      <a className="btn-secondary">View All Events</a>
+    </Link>
+  );
 
   return (
     <Layout>
@@ -19,7 +25,7 @@ export default function HomePage({ events }) {
       {hasEvents}
       {hasAllEventsButton}
     </Layout>
-  )
+  );
 }
 
 export async function getStaticProps() {
