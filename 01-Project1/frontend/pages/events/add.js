@@ -38,7 +38,7 @@ export default function AddEventPage() {
       const { slug } = await resp.json();
 
       push(`/events/${slug}`);
-    } catch ({ message }) {
+    } catch {
       toast.error("Something went wrong...");
     }
   };

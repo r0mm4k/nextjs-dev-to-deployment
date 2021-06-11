@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { FaPencilAlt, FaTimes } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 import { API_URL } from "@/config/index";
 
@@ -21,6 +23,8 @@ export default function EventPage({
     address,
   },
 }) {
+  const { push } = useRouter();
+
   const normalizedDate = new Date(date).toLocaleDateString("en-US");
 
   const hasImage = image && (
@@ -29,7 +33,28 @@ export default function EventPage({
     </div>
   );
 
-  const deleteEvent = () => console.log("delete event");
+  const deleteEvent = async () => {
+    try {
+      const resp = await fetch(`${API_URL}/events/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      await resp.json();
+
+      push("/events");
+    } catch {
+      toast.error("Something went wrong...");
+    }
+  };
+  const handleDeleteEvent = () => {
+    if (!confirm("Are you sure?")) {
+      return;
+    }
+
+    deleteEvent();
+  };
 
   return (
     <Layout>
@@ -40,7 +65,7 @@ export default function EventPage({
               <FaPencilAlt /> Edit Event
             </a>
           </Link>
-          <a href="#" className={styles.delete} onClick={deleteEvent}>
+          <a href="#" className={styles.delete} onClick={handleDeleteEvent}>
             <FaTimes /> Delete Event
           </a>
         </div>
