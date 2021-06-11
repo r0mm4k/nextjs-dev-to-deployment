@@ -1,5 +1,3 @@
-import Head from "next/head";
-
 import Link from "next/link";
 
 import { API_URL } from "@/config/index";

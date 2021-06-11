@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { toast } from "react-toastify";
 
 import { API_URL } from "@/config/index";
 import styles from "@/styles/form.module.css";
@@ -19,8 +20,37 @@ export default function AddEventPage() {
   });
   const { push } = useRouter();
 
+  const isValidForm = (values) => {
+    const hasEmptyFields = Object.values(values).some((value) => !value);
+    const hasError = hasEmptyFields;
+
+    return !hasError;
+  };
+  const createEvent = async (event) => {
+    try {
+      const resp = await fetch(`${API_URL}/events`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(event),
+      });
+      const { slug } = await resp.json();
+
+      push(`/events/${slug}`);
+    } catch ({ message }) {
+      toast.error("Something went wrong...");
+    }
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!isValidForm(values)) {
+      toast.error("Please fill in all fields");
+      return;
+    }
+
+    createEvent(values);
   };
   const handleInputChange = ({ target: { name, value } }) =>
     setValues((values) => ({ ...values, [name]: value }));
