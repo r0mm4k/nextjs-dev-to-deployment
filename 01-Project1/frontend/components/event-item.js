@@ -12,7 +12,7 @@ export default function EventItem({
     <div className={styles.event}>
       <div className={styles.img}>
         <Image
-          src={image.formats.thumbnail.url || "/images/event-default.png"}
+          src={image?.formats?.thumbnail?.url || "/images/event-default.png"}
           width={170}
           height={100}
         />

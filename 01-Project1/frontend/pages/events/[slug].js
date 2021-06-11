@@ -25,7 +25,7 @@ export default function EventPage({
 
   const hasImage = image && (
     <div className={styles.image}>
-      <Image src={image.formats.medium.url} width={960} height={600} />
+      <Image src={image?.formats?.medium?.url} width={960} height={600} />
     </div>
   );
 
